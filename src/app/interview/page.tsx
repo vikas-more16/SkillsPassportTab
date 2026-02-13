@@ -10,31 +10,97 @@ import {
   Timer,
   Lightbulb,
   MicOff,
+  Video,
 } from "lucide-react";
 import Image from "next/image";
 import BotLogoImage from "@/assets/botlogo.png";
-import PlaceHolderImage from "@/assets/PlaceHolder.png"
-import { useState } from "react";
+import PlaceHolderImage from "@/assets/PlaceHolder.png";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
-
 export default function InterviewPage() {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const mediaStreamRef = useRef<MediaStream | null>(null);
+
+  const [cameraOn, setCameraOn] = useState(false);
+  const [micOn, setMicOn] = useState(false);
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  const [permissionError, setPermissionError] = useState("");
+
   const [showAnswer, setShowAnswer] = useState(false);
   const [showIntro, setShowIntro] = useState(true);
+  const startMedia = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true,
+      });
+
+      mediaStreamRef.current = stream;
+
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        await videoRef.current.play();
+      }
+
+      setCameraOn(true);
+      setMicOn(true);
+      setHasPermission(true);
+      setPermissionError("");
+    } catch (error: any) {
+      console.error("Media error:", error);
+
+      setHasPermission(false);
+
+      if (error.name === "NotAllowedError") {
+        setPermissionError("Camera and Microphone permission denied.");
+      } else if (error.name === "NotFoundError") {
+        setPermissionError("No camera or microphone device found.");
+      } else {
+        setPermissionError("Unable to access camera or microphone.");
+      }
+    }
+  };
+
+  const stopCamera = () => {
+    if (!mediaStreamRef.current || !hasPermission) return;
+
+    mediaStreamRef.current.getVideoTracks().forEach((track) => {
+      track.enabled = !cameraOn;
+    });
+
+    setCameraOn(!cameraOn);
+  };
+
+  const stopMic = () => {
+    if (!mediaStreamRef.current || !hasPermission) return;
+
+    mediaStreamRef.current.getAudioTracks().forEach((track) => {
+      track.enabled = !micOn;
+    });
+
+    setMicOn(!micOn);
+  };
+
+  useEffect(() => {
+    if (!showIntro) {
+      startMedia();
+    }
+
+    return () => {
+      if (mediaStreamRef.current) {
+        mediaStreamRef.current.getTracks().forEach((track) => track.stop());
+      }
+    };
+  }, [showIntro]);
 
   return (
     <div className="p-10 space-y-8">
-
-      {/* {showIntro && (
+      {showIntro && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
           <div className="bg-white w-[830px] max-w-[95%] rounded-2xl overflow-hidden shadow-xl flex">
-            
             <div className="px-8 flex items-center justify-center">
-              <Image
-                src={PlaceHolderImage}
-                alt="Interview Preview"
-                priority
-              />
+              <Image src={PlaceHolderImage} alt="Interview Preview" priority />
             </div>
 
             <div className="flex-1 py-8 pr-10 relative">
@@ -45,9 +111,7 @@ export default function InterviewPage() {
                 ✕
               </button>
 
-              <h2 className="text-2xl font-semibold mb-2">
-                Before We Begin
-              </h2>
+              <h2 className="text-2xl font-semibold mb-2">Before We Begin</h2>
 
               <p className="text-gray-500 mb-4">
                 Here’s how this interview will work.
@@ -71,9 +135,8 @@ export default function InterviewPage() {
             </div>
           </div>
         </div>
-      )} */}
+      )}
 
-      
       {/* ================= HEADER ================= */}
       <div className="flex justify-between items-center">
         <div>
@@ -89,30 +152,72 @@ export default function InterviewPage() {
             HR Round
           </div>
           <Link href="/scorecard">
-          <button className="text-red-600 font-medium">End Session</button>
+            <button className="text-red-600 font-medium">End Session</button>
           </Link>
         </div>
       </div>
+
+      {hasPermission === false && (
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
+          ⚠ {permissionError}
+        </div>
+      )}
 
       {/* ================= MAIN CONTENT ================= */}
       <div className="grid grid-cols-[30%_70%] gap-8 h-[75vh]">
         {/* ============ LEFT SIDE ============ */}
         <div className="space-y-6 border border-[#E8E8E8] rounded-xl bg-white p-6 ">
-          {/* Camera Box */}
-          <div className="bg-[#4A4A4A] rounded-2xl p-10 text-center text-white relative">
-            <span className="absolute top-4 left-4 bg-[#808080] px-4 py-1 rounded-full text-sm">
+          <div className="relative rounded-2xl overflow-hidden h-[350px] bg-black">
+            {/*  Video as Background */}
+            <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              muted
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+
+            {/* Dark overlay when camera off */}
+            {!cameraOn && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-white bg-black/80 z-10">
+                <VideoOff size={48} className="mb-2 opacity-80" />
+                <p>Camera is off</p>
+              </div>
+            )}
+
+            {/* "You" label */}
+            <span className="absolute top-4 left-4 bg-black/60 px-4 py-1 rounded-full text-sm text-white z-20">
               You
             </span>
 
-            <VideoOff size={48} className="mx-auto mb-4 opacity-80" />
-            <p className="text-lg mb-6">Camera is off</p>
-
-            <div className="flex justify-center gap-4">
-              <button className="w-12 h-12 bg-[#E01F00] rounded-full flex items-center justify-center">
-                <VideoOff size={25} />
+            {/* Controls */}
+            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4 z-20">
+              <button
+                disabled={!hasPermission}
+                onClick={stopCamera}
+                className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                  cameraOn ? "bg-gray-500" : "bg-red-600"
+                } ${!hasPermission ? "opacity-50 cursor-not-allowed" : ""}`}
+              >
+                {cameraOn ? (
+                  <Video size={25} color="white" />
+                ) : (
+                  <VideoOff size={25} color="white" />
+                )}
               </button>
-              <button className="w-12 h-12 bg-[#E01F00] rounded-full flex items-center justify-center">
-                <MicOff size={25} />
+
+              <button
+                disabled={!hasPermission}
+                onClick={stopMic}
+                className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                  micOn ? "bg-gray-500" : "bg-red-600"
+                } ${!hasPermission ? "opacity-50 cursor-not-allowed" : ""}`}
+              >
+                {micOn ? (
+                  <Mic size={25} color="white" />
+                ) : (
+                  <MicOff size={25} color="white" />
+                )}
               </button>
             </div>
           </div>
@@ -215,8 +320,10 @@ export default function InterviewPage() {
                   </div>
 
                   <div className="flex gap-4 pt-4 mx-12 mt-10">
-                    <button className="flex-1 border-2 border-[#FF6652] text-[#FF6652] py-3 rounded-xl flex items-center justify-center gap-2 font-medium" onClick={()=> setShowAnswer(false)
-                    }>
+                    <button
+                      className="flex-1 border-2 border-[#FF6652] text-[#FF6652] py-3 rounded-xl flex items-center justify-center gap-2 font-medium"
+                      onClick={() => setShowAnswer(false)}
+                    >
                       Retake Answer <RotateCcw size={18} />
                     </button>
 
