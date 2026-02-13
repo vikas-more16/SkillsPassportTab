@@ -9,17 +9,71 @@ import {
   MessageCircleMore,
   Timer,
   Lightbulb,
+  MicOff,
 } from "lucide-react";
 import Image from "next/image";
 import BotLogoImage from "@/assets/botlogo.png";
+import PlaceHolderImage from "@/assets/PlaceHolder.png"
 import { useState } from "react";
 import Link from "next/link";
 
+
 export default function InterviewPage() {
   const [showAnswer, setShowAnswer] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
 
   return (
     <div className="p-10 space-y-8">
+
+      {/* {showIntro && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="bg-white w-[830px] max-w-[95%] rounded-2xl overflow-hidden shadow-xl flex">
+            
+            <div className="px-8 flex items-center justify-center">
+              <Image
+                src={PlaceHolderImage}
+                alt="Interview Preview"
+                priority
+              />
+            </div>
+
+            <div className="flex-1 py-8 pr-10 relative">
+              <button
+                onClick={() => setShowIntro(false)}
+                className="absolute top-5 right-5 text-gray-400 text-2xl hover:text-gray-600"
+              >
+                ✕
+              </button>
+
+              <h2 className="text-2xl font-semibold mb-2">
+                Before We Begin
+              </h2>
+
+              <p className="text-gray-500 mb-4">
+                Here’s how this interview will work.
+              </p>
+
+              <div className="bg-gray-100 rounded-xl p-6 space-y-4 text-gray-700">
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>This is a speech-to-speech interview</li>
+                  <li>Answer each question by recording your voice</li>
+                  <li>You’ll receive quick feedback after every answer</li>
+                  <li>A detailed report will be available at the end</li>
+                </ul>
+
+                <button
+                  onClick={() => setShowIntro(false)}
+                  className="bg-[#FF6652] text-white px-8 py-2 rounded-lg font-medium hover:opacity-90 transition"
+                >
+                  I’m Ready – Start Interview
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )} */}
+
+      
       {/* ================= HEADER ================= */}
       <div className="flex justify-between items-center">
         <div>
@@ -57,8 +111,8 @@ export default function InterviewPage() {
               <button className="w-12 h-12 bg-[#E01F00] rounded-full flex items-center justify-center">
                 <VideoOff size={25} />
               </button>
-              <button className="w-12 h-12 bg-[#808080] rounded-full flex items-center justify-center">
-                <Mic size={25} />
+              <button className="w-12 h-12 bg-[#E01F00] rounded-full flex items-center justify-center">
+                <MicOff size={25} />
               </button>
             </div>
           </div>
