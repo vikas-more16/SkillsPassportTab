@@ -46,7 +46,7 @@ export function AppSidebar() {
           {/* Active Item */}
           <NavItem
             icon={Bot}
-            label="AI Interview Prep"
+            label="Skills Passport"
             active
             className="text-lg"
           />
