@@ -17,6 +17,7 @@ import {
   FileText,
   Search,
   Bot,
+  ChevronDown,
   HelpCircle,
   Settings,
 } from "lucide-react";
@@ -41,12 +42,21 @@ export function AppSidebar() {
           />
           <NavItem icon={IdCard} label="My Credentials" className="text-lg" />
           <NavItem icon={FileText} label="Truresume" className="text-lg" />
-          <NavItem icon={Search} label="Find Jobs" className="text-lg" />
+          <NavItem
+            icon={Search}
+            label={
+              <span className="flex items-center gap-1">
+                Find Jobs
+                <ChevronDown size={25} className="ml-10 text-[#666666]" />
+              </span>
+            }
+            className="text-lg"
+          />
 
           {/* Active Item */}
           <NavItem
-            icon={Bot}
-            label="AI Interview Prep"
+            icon={IdCard}
+            label="Skills Passport"
             active
             className="text-lg"
           />
@@ -84,13 +94,13 @@ function NavItem({
   className = "",
 }: {
   icon: any;
-  label: string;
+  label: React.ReactNode;
   active?: boolean;
   className?: string;
 }) {
   return (
     <div
-      className={`flex items-center gap-3 px-4 py-2 rounded-lg cursor-pointer transition
+      className={`flex items-center gap-3 px-4 py-4 rounded-lg cursor-pointer transition
         ${
           active
             ? "bg-[#FFEFED] text-[#FF6652] font-medium"
