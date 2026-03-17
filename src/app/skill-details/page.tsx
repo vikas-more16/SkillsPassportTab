@@ -458,9 +458,9 @@ export default function SkillDetails() {
 
             {/* CONTENT Section */}
             <div className="flex flex-1 items-center justify-center overflow-auto bg-white">
-              <div className="w-full max-w-[380px] bg-[#F7F9FC] rounded-[16px] px-6 pt-6 pb-5">
+              <div className="w-full max-w-[480px] bg-[#F7F9FC] rounded-[16px] mx-5 px-5 py-10">
                 {/* ICON */}
-                <div className="flex justify-center mb-3">
+                <div className="flex justify-center -mt-16 mb-3">
                   <div className="w-[68px] h-[68px] bg-[#FF6652] rounded-full flex items-center justify-center shadow-[0_10px_20px_rgba(255,102,82,0.25)]">
                     <CheckCircle2
                       className="w-8 h-8 text-white"
@@ -488,7 +488,7 @@ export default function SkillDetails() {
                   <p className="text-[12px] font-medium text-[#94A3B8] mb-2 tracking-wide">
                     SOURCE CREDENTIAL
                   </p>
-                  <div className="flex items-center gap-3 bg-white px-3 py-2.5 rounded-[10px] border border-[#E2E8F0]">
+                  <div className="flex items-center gap-3 bg-white px-4 py-3.5 rounded-[10px] border border-[#E2E8F0]">
                     <FileText className="w-4 h-4 text-[#FF6652]" />
                     <span className="text-[14px] text-[#0F172A] font-medium">
                       Bachelor of Commerce
@@ -516,17 +516,17 @@ export default function SkillDetails() {
                 </div>
 
                 {/* PROFICIENCY */}
-                <div className="bg-[#F1F5F9] rounded-[12px] p-4 mb-6 border border-[#E2E8F0]">
-                  <p className="text-[11px] font-semibold text-[#94A3B8] mb-1 tracking-wide">
+                <div className="bg-[#E7ECF3] rounded-[12px] p-4 mb-6 border border-[#E2E8F0]">
+                  <p className="text-[12px] font-medium text-[#64748B] mb-1 tracking-wide">
                     PROFICIENCY
                   </p>
 
                   <span
-                    className={`text-[14px] font-semibold ${
+                    className={`text-[14px] font-medium ${
                       selectedSkill.proficiency === "Beginner"
-                        ? "text-[#F97316]"
+                        ? "text-[#F59E0B]"
                         : selectedSkill.proficiency === "Intermediate"
-                          ? "text-[#F59E0B]"
+                          ? "text-[#2563EB]"
                           : "text-[#16A34A]"
                     }`}
                   >
@@ -540,7 +540,7 @@ export default function SkillDetails() {
                 </div>
 
                 {/* BUTTON */}
-                <button className="w-full bg-[#FF6652] hover:bg-[#ff5540] transition text-white py-3 rounded-[10px] text-[15px] font-semibold">
+                <button className="w-full bg-[#FF6652] hover:bg-[#ff5540] transition text-white py-3 rounded-[10px] text-[18px] font-medium">
                   Add To Skills Passport
                 </button>
               </div>
