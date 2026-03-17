@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { useRouter } from "next/navigation"
-import { ArrowLeft } from "lucide-react"
+import { useRouter } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 
 export default function GoBackButton() {
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <button
@@ -19,5 +19,5 @@ export default function GoBackButton() {
       <ArrowLeft size={25} />
       Go Back
     </button>
-  )
+  );
 }
