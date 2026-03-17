@@ -2,13 +2,13 @@
 
 import Image from "next/image";
 import RobotImage from "@/assets/Illustration.png";
-import Link from "next/link";
-import { Sparkles } from "lucide-react";
 import addcard from "@/assets/add_card.png";
 import assignment from "@/assets/assignment_add.png";
 import listalt from "@/assets/list_alt_check.png";
 import psychology from "@/assets/psychology.png";
 import share_reviews from "@/assets/share_reviews.png";
+import shield from "@/assets/Shield.png";
+
 export default function Home() {
   return (
     <div className="flex justify-center items-start bg-[#FBFBFD] py-6 overflow-x-hidden">
@@ -35,105 +35,112 @@ export default function Home() {
           </div>
         </header>
 
-        {/* TIMELINE CARD (1100 x ~289) */}
+        {/* TIMELINE CARD */}
         <section className="mb-6">
-  <div className="w-full bg-[#F7F9FC] rounded-[12px] border border-[#D7E6FB] p-6 shadow-sm">
-    <h3 className="text-center text-[14px] font-bold text-[#1F284A]">
-      How Your Skills Passport Is Created
-    </h3>
+          <div className="w-full bg-[#F7F9FC] rounded-[12px] border border-[#D7E6FB] p-6 shadow-sm">
+            <h3 className="text-center text-[14px] font-bold text-[#1F284A]">
+              How Your Skills Passport Is Created
+            </h3>
 
-    <div className="relative mt-6">
+            {/* ICON ROW (line sits through center of hex icons) */}
+            <div className="mt-6 px-6">
+              <div className="relative">
+                {/* connector line — centered vertically inside the icon row */}
+                <div className="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-[4px] bg-[#E6EDF7] rounded -z-10" />
 
-      {/* connecting line THROUGH icons */}
-      <div className="absolute left-[48px] right-[48px] top-[28px] h-[4px] bg-[#E6EDF7] -z-5"></div>
+                {/* icons row */}
+                <div className="flex justify-between items-center relative z-10">
+                  {timelineSteps.map((step, idx) => (
+                    <div key={idx} className="flex justify-center w-[180px]">
+                      <div className="relative z-10">
+                        <HexIcon size={56}>{step.icon}</HexIcon>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
 
-      <div className="flex justify-between items-start relative z-10 px-6">
-        {timelineSteps.map((step, idx) => (
-          <div
-            key={idx}
-            className="flex flex-col items-center text-center px-2 w-[180px]"
-          >
-            {/* icon */}
-            <div className="relative mb-3 z-5">
-              <HexIcon color="#FF6A3D" size={56}>
-                {step.icon}
-              </HexIcon>
+              {/* titles + subtitles row (separate so line doesn't overlap text) */}
+              <div className="flex justify-between mt-4 px-2">
+                {timelineSteps.map((step, idx) => (
+                  <div key={idx} className="w-[180px] text-center px-2">
+                    <div className="text-[13px] font-semibold text-[#1F284A]">
+                      {step.title}
+                    </div>
+                    <p className="text-[10px] text-slate-500 mt-1">
+                      {step.subtitle}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
-
-            {/* title */}
-            <div className="text-[13px] font-semibold text-[#1F284A]">
-              {step.title}
-            </div>
-
-            {/* subtitle */}
-            <p className="text-[10px] text-slate-500 mt-1">
-              {step.subtitle}
-            </p>
           </div>
-        ))}
-      </div>
+        </section>
 
-    </div>
-  </div>
-</section>
-
-        {/* SECURITY & RIGHT CARD (700 + 376 = 1076 approx) */}
+        {/* SECURITY & RIGHT CARD */}
         <section>
-          <div className="grid grid-cols-[700px_300px] gap-2">
-            {/* left security box (700 x 250 approx) */}
-            <div className="bg-white rounded-[12px] p-2 border border-[#D7E6FB] shadow-sm mb-16">
+          <div className="grid grid-cols-[700px_380px] gap-4">
+            {/* left security box: make it relative so we can absolutely position the shield image inside it */}
+            <div className="relative bg-white rounded-[12px] p-4 border border-[#D7E6FB] shadow-sm">
               <h4 className="text-[18px] font-semibold text-[#1F284A]">Security &amp; Privacy Assurance</h4>
               <p className="text-[11px] text-slate-500 mt-2">
                 Your data is protected with bank-grade security and consent-driven access
               </p>
 
-              <ul className="mt-2 space-y-1">
-                <li className="flex gap-4 items-start">
+              <ul className="mt-3 space-y-2">
+                <li className="flex gap-3 items-start">
                   <CheckIcon />
                   <div>
-                    <div className="text-sm font-medium text-[#1F284A]">Aadhaar used only for identity assurance.</div>
-                    <div className="text-sm text-slate-500">Number and biometrics are not stored.</div>
+                    <div className="text-sm font-medium text-[#1F284A]">Aadhaar used only for identity assurance Number and biometrics are not stored.</div>
                   </div>
                 </li>
 
-                <li className="flex gap-4 items-start">
+                <li className="flex gap-3 items-start">
                   <CheckIcon />
                   <div className="text-sm font-medium text-[#1F284A]">Credentials retrieved securely via encrypted DigiLocker integration.</div>
                 </li>
 
-                <li className="flex gap-4 items-start">
+                <li className="flex gap-3 items-start">
                   <CheckIcon />
                   <div className="text-sm font-medium text-[#1F284A]">Skills generated using only verified credential evidence.</div>
                 </li>
 
-                <li className="flex gap-4 items-start">
+                <li className="flex gap-3 items-start">
                   <CheckIcon />
                   <div className="text-sm font-medium text-[#1F284A]">Consent-based access to records.</div>
                 </li>
               </ul>
+
+              {/* <-- Shield image placed at bottom-right inside this box --> */}
+              <Image
+                src={shield}
+                alt="Security Shield"
+                width={80}
+                height={80}
+                className="absolute right-4 bottom-4"
+                priority={false}
+              />
             </div>
 
-            {/* right small card (376 x 250 approx) */}
-<div className="bg-[#FFF0EE] rounded-[12px] p-3 w-[400px] h-[200px] flex flex-col items-center text-center shadow-sm">
+            {/* right small card */}
+            <div className="bg-[#FFF0EE] rounded-[12px] p-3 w-full h-[250px] flex flex-col items-center text-center shadow-sm">
+              <div className="w-28 h-28 mb-1 relative">
+                <Image
+                  src={RobotImage}
+                  alt="Turn Credentials"
+                  fill
+                  className="object-contain"
+                />
+              </div>
 
-  <div className="w-28 h-28 mb-1 relative">
-    <Image
-      src={RobotImage}
-      alt="Turn Credentials"
-      fill
-      className="object-contain"
-    />
-  </div>
+              <h5 className="text-[14px] font-semibold text-[#1F284A] leading-tight">
+                Turn Credentials Into Career Skills
+              </h5>
 
-  <h5 className="text-[14px] font-semibold text-[#1F284A] leading-tight">
-    Turn Credentials Into Career Skills
-  </h5>
-
-  <p className="text-[13px] text-slate-500 mt-1 max-w-[340px] leading-tight">
-    Create a skills passport that showcases your strengths and connects you to the right opportunities.
-  </p>
-
-</div>
+              <p className="text-[13px] text-slate-500 mt-1 max-w-[340px] leading-tight">
+                Create a skills passport that showcases your strengths and connects you to the right opportunities.
+              </p>
+            </div>
           </div>
         </section>
       </main>
@@ -149,53 +156,55 @@ const timelineSteps = [
   {
     title: "Select Credential Source",
     subtitle: "Choose where to retrieve your credential from — platform credentials or DigiLocker.",
-    icon: <Image src={addcard} alt="" width={24} height={24} />,
+    icon: <Image src={addcard} alt="add card" width={17} height={17} />,
   },
   {
     title: "Select Credential",
     subtitle: "Pick the credential you want to analyze to generate your skill insights.",
-    icon: <Image src={assignment} alt="" width={24} height={24} />,
+    icon: <Image src={assignment} alt="assignment" width={17} height={17} />,
   },
   {
     title: "AI Intelligence Engine",
     subtitle: "AI extracts skills from credentials.",
-    icon: <Image src={psychology} alt="" width={24} height={24} />,
+    icon: <Image src={psychology} alt="ai" width={17} height={17} />,
   },
   {
     title: "Skills Details",
     subtitle: "Review evidence and taxonomy.",
-    icon: <Image src={listalt} alt="" width={24} height={24} />,
+    icon: <Image src={listalt} alt="list" width={17} height={17} />,
   },
   {
     title: "Share & Find Jobs",
     subtitle: "Apply with your verified passport",
-    icon: <Image src={share_reviews} alt="" width={24} height={24} />,
+    icon: <Image src={share_reviews} alt="share" width={17} height={17} />,
   },
 ];
 
 function HexIcon({ children, size = 56 }) {
+  // size = hex outer size; center line uses top-1/2 so hex center aligns automatically
   return (
     <div
       className="relative flex items-center justify-center"
       style={{ width: size, height: size }}
+      aria-hidden
     >
-      {/* Hexagon Border */}
+      {/* hexagon border (white fill so connector behind won't show through) */}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={size}
         height={size}
         viewBox="0 0 24 24"
-        fill="none"
+        fill="white"
         stroke="#ff6652"
-        strokeWidth="1"
+        strokeWidth={1}
         strokeLinecap="round"
         strokeLinejoin="round"
         className="absolute"
+        aria-hidden
       >
         <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
       </svg>
 
-      {/* Image/Icon inside hexagon */}
       <div className="relative z-10 flex items-center justify-center">
         {children}
       </div>
@@ -205,6 +214,20 @@ function HexIcon({ children, size = 56 }) {
 
 function CheckIcon() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff6652" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check-icon lucide-shield-check"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#ff6652"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
   );
 }
