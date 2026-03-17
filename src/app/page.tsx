@@ -4,10 +4,14 @@ import Image from "next/image";
 import RobotImage from "@/assets/Illustration.png";
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
-
+import addcard from "@/assets/add_card.png";
+import assignment from "@/assets/assignment_add.png";
+import listalt from "@/assets/list_alt_check.png";
+import psychology from "@/assets/psychology.png";
+import share_reviews from "@/assets/share_reviews.png";
 export default function Home() {
   return (
-    <div className="min-h-screen flex justify-center items-start bg-[#FBFBFD] py-6">
+    <div className="flex justify-center items-start bg-[#FBFBFD] py-6 overflow-x-hidden">
       <main className="w-[1100px] bg-transparent">
         {/* HEADER */}
         <header className="flex items-start justify-between mb-4">
@@ -22,7 +26,7 @@ export default function Home() {
 
           <div>
             <button
-              className="w-[326px] h-[52px] bg-[#FF6A58] hover:bg-[#ff5a45] text-white rounded-[10px] shadow-lg font-semibold flex items-center justify-center gap-2"
+              className="w-[315px] h-[48px] bg-[#FF6A58] hover:bg-[#ff5a45] text-white rounded-[8px] shadow-lg font-semibold flex items-center justify-center gap-2"
               aria-label="Create My Skills Passport"
             >
               <span>Create My Skills Passport</span>
@@ -33,15 +37,15 @@ export default function Home() {
 
         {/* TIMELINE CARD (1100 x ~289) */}
         <section className="mb-6">
-  <div className="w-full bg-white rounded-[12px] border border-[#D7E6FB] p-6 shadow-sm">
-    <h3 className="text-center text-[18px] font-semibold text-[#1F284A]">
+  <div className="w-full bg-[#F7F9FC] rounded-[12px] border border-[#D7E6FB] p-6 shadow-sm">
+    <h3 className="text-center text-[14px] font-bold text-[#1F284A]">
       How Your Skills Passport Is Created
     </h3>
 
     <div className="relative mt-6">
 
       {/* connecting line THROUGH icons */}
-      <div className="absolute left-[48px] right-[48px] top-[32px] h-[4px] bg-[#E6EDF7] z-0"></div>
+      <div className="absolute left-[48px] right-[48px] top-[28px] h-[4px] bg-[#E6EDF7] -z-5"></div>
 
       <div className="flex justify-between items-start relative z-10 px-6">
         {timelineSteps.map((step, idx) => (
@@ -50,19 +54,19 @@ export default function Home() {
             className="flex flex-col items-center text-center px-2 w-[180px]"
           >
             {/* icon */}
-            <div className="relative mb-3">
+            <div className="relative mb-3 z-5">
               <HexIcon color="#FF6A3D" size={56}>
                 {step.icon}
               </HexIcon>
             </div>
 
             {/* title */}
-            <div className="text-sm font-semibold text-[#1F284A]">
+            <div className="text-[13px] font-semibold text-[#1F284A]">
               {step.title}
             </div>
 
             {/* subtitle */}
-            <p className="text-[12px] text-slate-500 mt-1">
+            <p className="text-[10px] text-slate-500 mt-1">
               {step.subtitle}
             </p>
           </div>
@@ -75,11 +79,11 @@ export default function Home() {
 
         {/* SECURITY & RIGHT CARD (700 + 376 = 1076 approx) */}
         <section>
-          <div className="grid grid-cols-[700px_376px] gap-4">
+          <div className="grid grid-cols-[700px_300px] gap-2">
             {/* left security box (700 x 250 approx) */}
-            <div className="bg-white rounded-[12px] p-2 border border-[#D7E6FB] shadow-sm">
-              <h4 className="text-[20px] font-semibold text-[#1F284A]">Security &amp; Privacy Assurance</h4>
-              <p className="text-[13px] text-slate-500 mt-2">
+            <div className="bg-white rounded-[12px] p-2 border border-[#D7E6FB] shadow-sm mb-16">
+              <h4 className="text-[18px] font-semibold text-[#1F284A]">Security &amp; Privacy Assurance</h4>
+              <p className="text-[11px] text-slate-500 mt-2">
                 Your data is protected with bank-grade security and consent-driven access
               </p>
 
@@ -110,16 +114,26 @@ export default function Home() {
             </div>
 
             {/* right small card (376 x 250 approx) */}
-            <div className="bg-[#FFF3F0] rounded-[12px] p-6 flex flex-col items-center text-center border border-transparent shadow-sm">
-              <div className="w-28 h-28 mb-3 relative">
-                <Image src={RobotImage} alt="Turn Credentials" fill className="object-contain" />
-              </div>
+<div className="bg-[#FFF0EE] rounded-[12px] p-3 w-[400px] h-[200px] flex flex-col items-center text-center shadow-sm">
 
-              <h5 className="text-[16px] font-semibold text-[#1F284A]">Turn Credentials Into Career Skills</h5>
-              <p className="text-[13px] text-slate-500 mt-2">
-                Create a skills passport that showcases your strengths and connects you to the right opportunities.
-              </p>
-            </div>
+  <div className="w-28 h-28 mb-1 relative">
+    <Image
+      src={RobotImage}
+      alt="Turn Credentials"
+      fill
+      className="object-contain"
+    />
+  </div>
+
+  <h5 className="text-[14px] font-semibold text-[#1F284A] leading-tight">
+    Turn Credentials Into Career Skills
+  </h5>
+
+  <p className="text-[13px] text-slate-500 mt-1 max-w-[340px] leading-tight">
+    Create a skills passport that showcases your strengths and connects you to the right opportunities.
+  </p>
+
+</div>
           </div>
         </section>
       </main>
@@ -135,71 +149,56 @@ const timelineSteps = [
   {
     title: "Select Credential Source",
     subtitle: "Choose where to retrieve your credential from — platform credentials or DigiLocker.",
-    icon: (
-      <svg width="22" height="18" viewBox="0 0 24 24" fill="none">
-        <rect x="3" y="6" width="18" height="12" rx="2" stroke="#FF6A3D" strokeWidth="1.5" />
-        <path d="M7 9h10" stroke="#FF6A3D" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
+    icon: <Image src={addcard} alt="" width={24} height={24} />,
   },
   {
     title: "Select Credential",
     subtitle: "Pick the credential you want to analyze to generate your skill insights.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <path d="M7 12h10" stroke="#FF6A3D" strokeWidth="1.6" strokeLinecap="round" />
-        <path d="M7 7h10" stroke="#FF6A3D" strokeWidth="1.6" strokeLinecap="round" />
-      </svg>
-    ),
+    icon: <Image src={assignment} alt="" width={24} height={24} />,
   },
   {
     title: "AI Intelligence Engine",
     subtitle: "AI extracts skills from credentials.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="3" stroke="#FF6A3D" strokeWidth="1.5"></circle>
-        <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5" stroke="#FF6A3D" strokeWidth="1.2" strokeLinecap="round" />
-      </svg>
-    ),
+    icon: <Image src={psychology} alt="" width={24} height={24} />,
   },
   {
     title: "Skills Details",
     subtitle: "Review evidence and taxonomy.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <rect x="4" y="5" width="16" height="14" rx="2" stroke="#FF6A3D" strokeWidth="1.5" />
-        <path d="M8 9h8M8 13h8" stroke="#FF6A3D" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
+    icon: <Image src={listalt} alt="" width={24} height={24} />,
   },
   {
     title: "Share & Find Jobs",
     subtitle: "Apply with your verified passport",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <path d="M14 3v4" stroke="#FF6A3D" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M10 21v-4" stroke="#FF6A3D" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M5 8l7 8 7-8" stroke="#FF6A3D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    icon: <Image src={share_reviews} alt="" width={24} height={24} />,
   },
 ];
 
-function HexIcon({ children, color = "#FF6A3D", size = 56 }) {
+function HexIcon({ children, size = 56 }) {
   return (
-    <div style={{ width: size, height: size }} className="flex items-center justify-center">
-      <svg viewBox="0 0 100 100" width={size} height={size} aria-hidden>
-        <defs>
-          <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
-            <stop offset="0%" stopColor="#FF8A5F" />
-            <stop offset="100%" stopColor="#FF6A3D" />
-          </linearGradient>
-        </defs>
-        <path d="M50 7 L80 26 L80 64 L50 93 L20 64 L20 26 Z" fill="white" stroke={color} strokeWidth="3.5" />
-        <g transform="translate(50,50)" fill={color} stroke="none" style={{ transformOrigin: "50% 50%" }}>
-          <g transform="translate(-9,-9)">{children}</g>
-        </g>
+    <div
+      className="relative flex items-center justify-center"
+      style={{ width: size, height: size }}
+    >
+      {/* Hexagon Border */}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size}
+        height={size}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#ff6652"
+        strokeWidth="1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="absolute"
+      >
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
       </svg>
+
+      {/* Image/Icon inside hexagon */}
+      <div className="relative z-10 flex items-center justify-center">
+        {children}
+      </div>
     </div>
   );
 }
