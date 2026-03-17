@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import RobotImage from "@/assets/Illustration.png";
 import addcard from "@/assets/add_card.png";
 import assignment from "@/assets/assignment_add.png";
@@ -8,8 +9,10 @@ import listalt from "@/assets/list_alt_check.png";
 import psychology from "@/assets/psychology.png";
 import share_reviews from "@/assets/share_reviews.png";
 import shield from "@/assets/Shield.png";
-
+import Link from "next/link";
 export default function Home() {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className="flex justify-center items-start bg-[#FBFBFD] py-6 overflow-x-hidden">
       <main className="w-[1100px] bg-transparent">
@@ -26,6 +29,7 @@ export default function Home() {
 
           <div>
             <button
+              onClick={() => setShowModal(true)}
               className="w-[315px] h-[48px] bg-[#FF6A58] hover:bg-[#ff5a45] text-white rounded-[8px] shadow-lg font-semibold flex items-center justify-center gap-2"
               aria-label="Create My Skills Passport"
             >
@@ -144,6 +148,85 @@ export default function Home() {
           </div>
         </section>
       </main>
+
+      {/* MODAL */}
+      {showModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+          onClick={() => setShowModal(false)}
+        >
+          <div
+            style={{ width: "700px", height: "346px", padding: "28px 32px 28px 32px" }}
+            className="bg-white rounded-[16px] shadow-2xl relative flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-[14px] right-[16px] text-gray-400 hover:text-gray-600 transition-colors"
+              aria-label="Close modal"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+
+            {/* Title */}
+            <h2 className="text-[18px] font-semibold text-[#1F284A] text-center mb-5">
+              Create Your Skills Passport
+            </h2>
+
+            {/* Two option cards */}
+            <div className="flex gap-4 flex-1">
+              {/* Platform Credentials */}
+              <div className="flex-1 bg-[#F7F9FC] rounded-[10px] px-5 py-4 flex flex-col items-center text-center">
+                {/* Icon */}
+                <div className="mb-2 w-[46px] h-[46px] bg-white rounded-full flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF6A58" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M10 4V2.5c0-.83.67-1.5 1.5-1.5h1c.83 0 1.5.67 1.5 1.5V4" />
+                    <rect x="4" y="4" width="16" height="18" rx="2.5" ry="2.5" />
+                    <circle cx="12" cy="11" r="2.5" />
+                    <path d="M7 18c0-2.2 2.2-4 5-4s5 1.8 5 4" />
+                  </svg>
+                </div>
+                <h3 className="text-[13.5px] font-semibold text-[#1F284A] mb-1">Use Platform Credentials</h3>
+                <p className="text-[11px] text-slate-500 leading-relaxed mb-3 max-w-[180px]">
+                  Select credentials already issued or stored on the platform.
+                </p>
+              <Link
+  href="/view-credentials"
+  role="button"
+  className="mt-auto w-full h-[33px] bg-[#FF6A58] hover:bg-[#ff5a45] text-white text-[12px] font-semibold rounded-[6px] flex items-center justify-center gap-1.5 transition-colors"
+>
+  View Credentials <span className="text-[13px]">→</span>
+</Link>
+              </div>
+
+              {/* DigiLocker */}
+              <div className="flex-1 bg-[#F7F9FC] rounded-[10px] px-5 py-4 flex flex-col items-center text-center">
+                {/* Icon */}
+                <div className="mb-2 w-[46px] h-[46px] bg-white rounded-full flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="#FF6A58" d="M6 2h8v6h6v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" />
+                    <polygon fill="#ff8a7a" points="14,2 20,8 14,8" />
+                    <path fill="white" d="M16.5 16.5c0 1.38-1.12 2.5-2.5 2.5h-4c-1.38 0-2.5-1.12-2.5-2.5 0-1.28 1.02-2.33 2.28-2.48.53-1.44 1.9-2.42 3.47-2.42 1.48 0 2.76.88 3.32 2.16.82.16 1.43.88 1.43 1.74" />
+                    <path fill="#FF6A58" d="M11.5 11.5h1v2.5h1.5L12 16l-2-2h1.5v-2.5z" />
+                  </svg>
+                </div>
+                <h3 className="text-[13.5px] font-semibold text-[#1F284A] mb-1">Fetch from DigiLocker</h3>
+                <p className="text-[11px] text-slate-500 leading-relaxed mb-3 max-w-[180px]">
+                  Import verified credentials from your DigiLocker account.
+                </p>
+                <button className="mt-auto w-full h-[33px] bg-[#FF6A58] hover:bg-[#ff5a45] text-white text-[12px] font-semibold rounded-[6px] flex items-center justify-center gap-1.5 transition-colors">
+                  Fetch Credentials <span className="text-[13px]">→</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
