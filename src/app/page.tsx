@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import RobotImage from "@/assets/Illustration.png";
 import addcard from "@/assets/add_card.png";
 import assignment from "@/assets/assignment_add.png";
@@ -10,8 +10,59 @@ import psychology from "@/assets/psychology.png";
 import share_reviews from "@/assets/share_reviews.png";
 import shield from "@/assets/Shield.png";
 import Link from "next/link";
+
+/* <-- NEW: modal icons you provided
+   Put these two files in your assets folder (or update paths accordingly):
+   - @/assets/modal_id_card.png
+   - @/assets/modal_doc_cloud.png
+*/
+import ModalIdCard from "@/assets/modal_id_card.png";
+import ModalDocCloud from "@/assets/modal_doc_cloud.png";
+
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
+
+  // Refs used to measure first/last hex centers and container
+  const iconsRowRef = useRef(null);
+  const firstHexRef = useRef(null);
+  const lastHexRef = useRef(null);
+  const [lineStyle, setLineStyle] = useState({ left: 0, width: 0 });
+
+  useEffect(() => {
+    function updateLine() {
+      const container = iconsRowRef.current;
+      const first = firstHexRef.current;
+      const last = lastHexRef.current;
+      if (!container || !first || !last) return;
+
+      const containerRect = container.getBoundingClientRect();
+      const firstRect = first.getBoundingClientRect();
+      const lastRect = last.getBoundingClientRect();
+
+      // center x of first and last relative to container left
+      const firstCenter = firstRect.left + firstRect.width / 2 - containerRect.left;
+      const lastCenter = lastRect.left + lastRect.width / 2 - containerRect.left;
+
+      // Add small padding so the line reaches visually into the hex edges (optional tweak)
+      const left = Math.round(firstCenter);
+      const width = Math.round(Math.max(0, lastCenter - firstCenter));
+
+      setLineStyle({ left, width });
+    }
+
+    // initial
+    updateLine();
+
+    // update on resize
+    window.addEventListener("resize", updateLine);
+    // also update after fonts/images load (small delay)
+    const t = setTimeout(updateLine, 200);
+
+    return () => {
+      window.removeEventListener("resize", updateLine);
+      clearTimeout(t);
+    };
+  }, []);
 
   return (
     <div className="flex justify-center items-start bg-[#FBFBFD] py-6 overflow-x-hidden">
@@ -49,13 +100,27 @@ export default function Home() {
             {/* ICON ROW (line sits through center of hex icons) */}
             <div className="mt-6 px-6">
               <div className="relative">
-                {/* connector line — centered vertically inside the icon row */}
-                <div className="absolute left-6 right-6 top-1/2 -translate-y-1/2 h-[4px] bg-[#E6EDF7] rounded -z-10" />
+                {/* connector line — positioned using measured left & width so it ends at the leftmost and rightmost hexagon centers */}
+                <div
+                  className="absolute top-1/2 -translate-y-1/2 h-[6px] bg-[#E6EDF7] rounded-full z-0"
+                  style={{
+                    left: `${lineStyle.left}px`,
+                    width: `${lineStyle.width}px`,
+                  }}
+                />
 
                 {/* icons row */}
-                <div className="flex justify-between items-center relative z-10">
+                <div
+                  ref={iconsRowRef}
+                  className="flex justify-between items-center relative z-10"
+                >
                   {timelineSteps.map((step, idx) => (
-                    <div key={idx} className="flex justify-center w-[180px]">
+                    <div
+                      key={idx}
+                      className="flex justify-center w-[180px]"
+                      // attach refs to first and last hex wrappers
+                      ref={idx === 0 ? firstHexRef : idx === timelineSteps.length - 1 ? lastHexRef : undefined}
+                    >
                       <div className="relative z-10">
                         <HexIcon size={56}>{step.icon}</HexIcon>
                       </div>
@@ -182,39 +247,35 @@ export default function Home() {
             <div className="flex gap-4 flex-1">
               {/* Platform Credentials */}
               <div className="flex-1 bg-[#F7F9FC] rounded-[10px] px-5 py-4 flex flex-col items-center text-center">
-                {/* Icon */}
+                {/* Icon — replaced with your provided id-card image */}
                 <div className="mb-2 w-[46px] h-[46px] bg-white rounded-full flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF6A58" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M10 4V2.5c0-.83.67-1.5 1.5-1.5h1c.83 0 1.5.67 1.5 1.5V4" />
-                    <rect x="4" y="4" width="16" height="18" rx="2.5" ry="2.5" />
-                    <circle cx="12" cy="11" r="2.5" />
-                    <path d="M7 18c0-2.2 2.2-4 5-4s5 1.8 5 4" />
-                  </svg>
+                  <div className="w-8 h-8 relative">
+                    <Image src={ModalIdCard} alt="platform credentials" fill className="object-contain" />
+                  </div>
                 </div>
+
                 <h3 className="text-[13.5px] font-semibold text-[#1F284A] mb-1">Use Platform Credentials</h3>
                 <p className="text-[11px] text-slate-500 leading-relaxed mb-3 max-w-[180px]">
                   Select credentials already issued or stored on the platform.
                 </p>
-              <Link
-  href="/view-credentials"
-  role="button"
-  className="mt-auto w-full h-[33px] bg-[#FF6A58] hover:bg-[#ff5a45] text-white text-[12px] font-semibold rounded-[6px] flex items-center justify-center gap-1.5 transition-colors"
->
-  View Credentials <span className="text-[13px]">→</span>
-</Link>
+                <Link
+                  href="/view-credentials"
+                  role="button"
+                  className="mt-auto w-full h-[33px] bg-[#FF6A58] hover:bg-[#ff5a45] text-white text-[12px] font-semibold rounded-[6px] flex items-center justify-center gap-1.5 transition-colors"
+                >
+                  View Credentials <span className="text-[13px]">→</span>
+                </Link>
               </div>
 
               {/* DigiLocker */}
               <div className="flex-1 bg-[#F7F9FC] rounded-[10px] px-5 py-4 flex flex-col items-center text-center">
-                {/* Icon */}
+                {/* Icon — replaced with your provided cloud-doc image */}
                 <div className="mb-2 w-[46px] h-[46px] bg-white rounded-full flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path fill="#FF6A58" d="M6 2h8v6h6v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" />
-                    <polygon fill="#ff8a7a" points="14,2 20,8 14,8" />
-                    <path fill="white" d="M16.5 16.5c0 1.38-1.12 2.5-2.5 2.5h-4c-1.38 0-2.5-1.12-2.5-2.5 0-1.28 1.02-2.33 2.28-2.48.53-1.44 1.9-2.42 3.47-2.42 1.48 0 2.76.88 3.32 2.16.82.16 1.43.88 1.43 1.74" />
-                    <path fill="#FF6A58" d="M11.5 11.5h1v2.5h1.5L12 16l-2-2h1.5v-2.5z" />
-                  </svg>
+                  <div className="w-8 h-8 relative">
+                    <Image src={ModalDocCloud} alt="digilocker" fill className="object-contain" />
+                  </div>
                 </div>
+
                 <h3 className="text-[13.5px] font-semibold text-[#1F284A] mb-1">Fetch from DigiLocker</h3>
                 <p className="text-[11px] text-slate-500 leading-relaxed mb-3 max-w-[180px]">
                   Import verified credentials from your DigiLocker account.
