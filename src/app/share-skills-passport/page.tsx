@@ -249,9 +249,12 @@ export default function ShareSkillsPassport() {
             >
               Cancel
             </Link>
-            <button className="rounded-xl bg-[#FF6652] px-5 py-2 text-lg font-semibold text-white shadow-sm hover:bg-[#ff5540] transition-colors">
+            <Link
+              href={"/skill-passport"}
+              className="rounded-xl bg-[#FF6652] px-5 py-2 text-lg font-semibold text-white shadow-sm hover:bg-[#ff5540] transition-colors"
+            >
               Generate Skills Passport
-            </button>
+            </Link>
           </div>
         </div>
 
