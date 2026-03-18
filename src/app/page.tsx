@@ -280,9 +280,12 @@ export default function Home() {
                 <p className="text-[11px] text-slate-500 leading-relaxed mb-3 max-w-[180px]">
                   Import verified credentials from your DigiLocker account.
                 </p>
-                <button className="mt-auto w-full h-[33px] bg-[#FF6A58] hover:bg-[#ff5a45] text-white text-[12px] font-semibold rounded-[6px] flex items-center justify-center gap-1.5 transition-colors">
-                  Fetch Credentials <span className="text-[13px]">→</span>
-                </button>
+                <Link
+  href="/skill-analysis"
+  className="mt-auto w-full h-[33px] bg-[#FF6A58] hover:bg-[#ff5a45] text-white text-[12px] font-semibold rounded-[6px] flex items-center justify-center gap-1.5 transition-colors"
+>
+  Fetch Credentials <span className="text-[13px]">→</span>
+</Link>
               </div>
             </div>
           </div>
