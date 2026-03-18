@@ -2,24 +2,65 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import GoBackButton from "@/components/GoBackButton";
 
 /*
   Use only the 3 images you provided.
   Put these files in `src/assets` or `@/assets` and update names if needed.
 */
-import VerifiedOrange from "@/assets/verified_orange.png";     // orange circular verified badge
-import VerifiedBlue from "@/assets/digilocker_verified.png";   // blue Digilocker badge
-import DiplomaIcon from "@/assets/diploma_icon.png";           // diploma / scroll icon
+import VerifiedOrange from "@/assets/verified_orange.png"; // orange circular verified badge
+import VerifiedBlue from "@/assets/digilocker_verified.png"; // blue Digilocker badge
+import DiplomaIcon from "@/assets/diploma_icon.png"; // diploma / scroll icon
 import Certificate from "@/assets/certificate.png";
 import Calendar from "@/assets/calendar.png";
 
 export default function ViewCredentialsPage() {
   const creds = [
-    { id: 1, title: "Bachelor of Commerce", uni: "XYZ University", type: "Degree Certificate", year: 2026, badge: "blue", cta: "Continue to Skill Analysis" },
-    { id: 2, title: "Bachelor of Commerce", uni: "XYZ University", type: "Degree Certificate", year: 2026, badge: "orange", cta: "View Details" },
-    { id: 3, title: "Bachelor of Commerce", uni: "XYZ University", type: "Degree Certificate", year: 2026, badge: "blue", cta: "Continue to Skill Analysis" },
-    { id: 4, title: "Bachelor of Commerce", uni: "XYZ University", type: "Degree Certificate", year: 2026, badge: "orange", cta: "Continue to Skill Analysis" },
-    { id: 5, title: "Bachelor of Commerce", uni: "XYZ University", type: "Degree Certificate", year: 2026, badge: "orange", cta: "View Details" },
+    {
+      id: 1,
+      title: "Bachelor of Commerce",
+      uni: "XYZ University",
+      type: "Degree Certificate",
+      year: 2026,
+      badge: "blue",
+      cta: "Continue to Skill Analysis",
+    },
+    {
+      id: 2,
+      title: "Bachelor of Commerce",
+      uni: "XYZ University",
+      type: "Degree Certificate",
+      year: 2026,
+      badge: "orange",
+      cta: "View Details",
+    },
+    {
+      id: 3,
+      title: "Bachelor of Commerce",
+      uni: "XYZ University",
+      type: "Degree Certificate",
+      year: 2026,
+      badge: "blue",
+      cta: "Continue to Skill Analysis",
+    },
+    {
+      id: 4,
+      title: "Bachelor of Commerce",
+      uni: "XYZ University",
+      type: "Degree Certificate",
+      year: 2026,
+      badge: "orange",
+      cta: "Continue to Skill Analysis",
+    },
+    {
+      id: 5,
+      title: "Bachelor of Commerce",
+      uni: "XYZ University",
+      type: "Degree Certificate",
+      year: 2026,
+      badge: "orange",
+      cta: "View Details",
+    },
   ];
 
   return (
@@ -28,38 +69,36 @@ export default function ViewCredentialsPage() {
         {/* top header */}
         <div className="flex items-start justify-between mb-8">
           <div className="flex flex-col gap-2">
+            <GoBackButton />
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold text-[#0F1724]">
+                Your Credentials
+              </h1>
+              <p className="text-sm text-slate-500 mt-1">
+                Select the credentials you want to include for generating your
+                Skills Passport.
+              </p>
+            </div>
+          </div>
+
+          {/* Fetch from Digilocker CTA */}
+          <div className="ml-6">
             <Link
-              href="#"
-              className="flex items-center gap-2 text-[#FF715D] hover:underline"
+              href="/fetch-digilocker"
+              className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF7E69] to-[#FF5E49] text-white px-5 py-3 rounded-lg shadow-md hover:opacity-95"
             >
+              <span>Fetch From Digilocker</span>
               <svg
                 className="w-4 h-4"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="#FF715D"
+                stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <path d="M15 18l-6-6 6-6" />
+                <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
-              <span className="text-sm">Go Back</span>
-            </Link>
-            <div>
-              <h1 className="text-2xl md:text-3xl font-bold text-[#0F1724]">Your Credentials</h1>
-              <p className="text-sm text-slate-500 mt-1">Select the credentials you want to include for generating your Skills Passport.</p>
-            </div>
-          </div>
-
-
-
-          
-
-          {/* Fetch from Digilocker CTA */}
-          <div className="ml-6">
-            <Link href="/fetch-digilocker" className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF7E69] to-[#FF5E49] text-white px-5 py-3 rounded-lg shadow-md hover:opacity-95">
-              <span>Fetch From Digilocker</span>
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </Link>
           </div>
         </div>
@@ -90,7 +129,12 @@ function CredentialCard({ cred }) {
           </div>
         ) : (
           <div className="w-20 h-8 translate-x-7">
-            <Image src={VerifiedBlue} alt="digilocker verified" width={56} height={56} />
+            <Image
+              src={VerifiedBlue}
+              alt="digilocker verified"
+              width={56}
+              height={56}
+            />
           </div>
         )}
       </div>
@@ -137,9 +181,12 @@ function CredentialCard({ cred }) {
                 {cta} <span className="ml-2">→</span>
               </Link>
             ) : (
-              <button className="w-full py-2 border border-[#FFDDD6] text-[#FF6A58] rounded-md text-sm font-medium hover:bg-[#FFF4F2] transition flex items-center justify-center">
+              <Link
+                href={"/skill-analysis"}
+                className="w-full py-2 border border-[#FFDDD6] text-[#FF6A58] rounded-md text-sm font-medium hover:bg-[#FFF4F2] transition flex items-center justify-center"
+              >
                 {cta} <span className="ml-2">→</span>
-              </button>
+              </Link>
             )}
           </div>
         </div>

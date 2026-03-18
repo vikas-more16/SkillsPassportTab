@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Check, Maximize } from "lucide-react";
 import BlankImage from "@/assets/BlankImage.png";
+import Link from "next/link";
 
 interface Skill {
   id: string;
@@ -242,9 +243,12 @@ export default function ShareSkillsPassport() {
           </div>
 
           <div className="flex items-center gap-12">
-            <button className="text-lg font-semibold text-[#FF6652] ">
+            <Link
+              href={"/skills-passport"}
+              className="text-lg font-semibold text-[#FF6652] "
+            >
               Cancel
-            </button>
+            </Link>
             <button className="rounded-xl bg-[#FF6652] px-5 py-2 text-lg font-semibold text-white shadow-sm hover:bg-[#ff5540] transition-colors">
               Generate Skills Passport
             </button>

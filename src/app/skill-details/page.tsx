@@ -540,15 +540,13 @@ export default function SkillDetails() {
                   </p>
                 </div>
 
-                import Link from "next/link";
-
-{/* BUTTON */}
-<Link
-  href="/skills-passport"
-  className="w-full bg-[#FF6652] hover:bg-[#ff5540] transition text-white py-3 rounded-[10px] text-[15px] font-semibold flex items-center justify-center"
->
-  Add To Skills Passport
-</Link>
+                {/* BUTTON */}
+                <Link
+                  href="/skills-passport"
+                  className="w-full bg-[#FF6652] hover:bg-[#ff5540] transition text-white py-3 rounded-[10px] text-[15px] font-semibold flex items-center justify-center"
+                >
+                  Add To Skills Passport
+                </Link>
               </div>
             </div>
           </div>

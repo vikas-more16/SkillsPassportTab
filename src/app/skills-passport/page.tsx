@@ -5,13 +5,12 @@ import Image from "next/image";
 import {
   BadgeCheck,
   Lightbulb,
-  ShieldCheck,
   List,
   Check,
   FileText,
   Calendar,
 } from "lucide-react";
-
+import Link from "next/link";
 import RiveraImg from "@/assets/Alex Rivera.png";
 import CertificateImg from "@/assets/Certificate.png";
 import DigilockerImg from "@/assets/digilocker.png";
@@ -82,12 +81,18 @@ export default function SkillsPassport() {
             </div>
           </div>
           <div className="flex items-center gap-4 w-full md:w-auto">
-            <button className="flex-1 md:flex-none text-[#FF6652] bg-white  hover:border-[#FF6652] transition font-semibold text-[16px] px-5 py-2 rounded-lg shadow-sm whitespace-nowrap">
+            <Link
+              href={"/share-skills-passport"}
+              className="flex-1 md:flex-none text-[#FF6652] bg-white  hover:border-[#FF6652] transition font-semibold text-[16px] px-5 py-2 rounded-lg shadow-sm whitespace-nowrap"
+            >
               Share Skills Passport
-            </button>
-            <button className="flex-1 md:flex-none text-white bg-[#FF6652] hover:bg-[#E85C4A] transition font-semibold text-[16px] px-5 py-2 rounded-lg shadow-sm whitespace-nowrap">
+            </Link>
+            <Link
+              href="/"
+              className="flex-1 md:flex-none text-white bg-[#FF6652] hover:bg-[#E85C4A] transition font-semibold text-[16px] px-5 py-2 rounded-lg shadow-sm whitespace-nowrap"
+            >
               Analyze Another Credential
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -117,9 +122,12 @@ export default function SkillsPassport() {
                       <span className="text-[16px] font-semibold text-[#0F172A]">
                         {section.title}
                       </span>
-                      <button className="text-[#FF6652] text-[14px] font-semibold hover:underline">
+                      <Link
+                        href={"/cognitive-skills"}
+                        className="text-[#FF6652] text-[14px] font-semibold hover:underline"
+                      >
                         View All
-                      </button>
+                      </Link>
                     </div>
 
                     <div className="flex flex-wrap gap-x-3 gap-y-1.5">
@@ -300,7 +308,7 @@ export default function SkillsPassport() {
                   className="text-[#FF6652] w-[20px] h-[20px]"
                   strokeWidth={2.5}
                 />
-                <h3 className="text-[20px] font-bold text-[#111827]">
+                <h3 className="text-[20px] font-semibold text-[#111827]">
                   Role Matching
                 </h3>
               </div>
