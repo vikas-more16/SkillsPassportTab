@@ -51,6 +51,10 @@ export default function ViewCredentialsPage() {
             </div>
           </div>
 
+
+
+          
+
           {/* Fetch from Digilocker CTA */}
           <div className="ml-6">
             <Link href="/fetch-digilocker" className="inline-flex items-center gap-3 bg-gradient-to-r from-[#FF7E69] to-[#FF5E49] text-white px-5 py-3 rounded-lg shadow-md hover:opacity-95">
@@ -73,9 +77,6 @@ export default function ViewCredentialsPage() {
   );
 }
 
-/* -----------------------
-   Credential Card Component
-   ----------------------- */
 function CredentialCard({ cred }) {
   const { title, uni, type, year, badge, cta } = cred;
 
@@ -117,7 +118,7 @@ function CredentialCard({ cred }) {
               <span>{type}</span>
             </div>
 
-            {/* Year tag with calendar icon */}
+            {/* Year tag */}
             <div className="flex items-center gap-2 bg-[#F8FAFB] border border-slate-100 rounded-full px-3 py-1 text-xs text-slate-600">
               <div className="w-4 h-4 relative">
                 <Image src={Calendar} alt="year" width={14} height={14} />
@@ -128,9 +129,18 @@ function CredentialCard({ cred }) {
 
           {/* CTA */}
           <div className="mt-4">
-            <button className="w-full py-2 border border-[#FFDDD6] text-[#FF6A58] rounded-md text-sm font-medium hover:bg-[#FFF4F2] transition">
-              {cta} <span className="ml-2">→</span>
-            </button>
+            {cta === "View Details" ? (
+              <Link
+                href="/skill-details"
+                className="w-full py-2 border border-[#FFDDD6] text-[#FF6A58] rounded-md text-sm font-medium hover:bg-[#FFF4F2] transition flex items-center justify-center"
+              >
+                {cta} <span className="ml-2">→</span>
+              </Link>
+            ) : (
+              <button className="w-full py-2 border border-[#FFDDD6] text-[#FF6A58] rounded-md text-sm font-medium hover:bg-[#FFF4F2] transition flex items-center justify-center">
+                {cta} <span className="ml-2">→</span>
+              </button>
+            )}
           </div>
         </div>
       </div>

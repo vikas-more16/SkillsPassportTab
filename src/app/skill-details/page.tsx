@@ -13,6 +13,7 @@ import GoBackButton from "@/components/GoBackButton";
 
 import DegreeCertificateImg from "@/assets/DegreeCertificate.png";
 import DigilockerImg from "@/assets/digilocker.png";
+import Link from "next/link";
 
 type Skill = {
   id: string;
@@ -539,10 +540,15 @@ export default function SkillDetails() {
                   </p>
                 </div>
 
-                {/* BUTTON */}
-                <button className="w-full bg-[#FF6652] hover:bg-[#ff5540] transition text-white py-3 rounded-[10px] text-[15px] font-semibold">
-                  Add To Skills Passport
-                </button>
+                import Link from "next/link";
+
+{/* BUTTON */}
+<Link
+  href="/skills-passport"
+  className="w-full bg-[#FF6652] hover:bg-[#ff5540] transition text-white py-3 rounded-[10px] text-[15px] font-semibold flex items-center justify-center"
+>
+  Add To Skills Passport
+</Link>
               </div>
             </div>
           </div>
