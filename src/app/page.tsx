@@ -18,6 +18,7 @@ import Link from "next/link";
 */
 import ModalIdCard from "@/assets/modal_id_card.png";
 import ModalDocCloud from "@/assets/modal_doc_cloud.png";
+import LinkSimple from "@/assets/linkSimple.png";
 
 export default function Home() {
   const [showModal, setShowModal] = useState(false);
@@ -222,7 +223,7 @@ export default function Home() {
           onClick={() => setShowModal(false)}
         >
           <div
-            style={{ width: "700px", height: "346px", padding: "28px 32px 28px 32px" }}
+            style={{ width: "800px", height: "346px", padding: "28px 32px 28px 32px" }}
             className="bg-white rounded-[16px] shadow-2xl relative flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
@@ -243,7 +244,7 @@ export default function Home() {
               Create Your Skills Passport
             </h2>
 
-            {/* Two option cards */}
+            {/* three option cards */}
             <div className="flex gap-4 flex-1">
               {/* Platform Credentials */}
               <div className="flex-1 bg-[#F7F9FC] rounded-[10px] px-5 py-4 flex flex-col items-center text-center">
@@ -287,6 +288,28 @@ export default function Home() {
   Fetch Credentials <span className="text-[13px]">→</span>
 </Link>
               </div>
+               
+              {/* certifiate link */}
+               <div className="flex-1 bg-[#F7F9FC] rounded-[10px] px-5 py-4 flex flex-col items-center text-center">
+                {/* Icon — replaced with your provided cloud-doc image */}
+                <div className="mb-2 w-[46px] h-[46px] bg-white rounded-full flex items-center justify-center shadow-[0_2px_8px_rgba(0,0,0,0.06)]">
+                  <div className="w-8 h-8 relative">
+                    <Image src={LinkSimple} alt="link" fill className="object-contain" />
+                  </div>
+                </div>
+
+                <h3 className="text-[13.5px] font-semibold text-[#1F284A] mb-1">Add Certificate via Link</h3>
+                <p className="text-[11px] text-slate-500 leading-relaxed mb-3 max-w-[180px]">
+                 Paste a certification link from platforms like Udemy, Coursera, AWS, or Microsoft. Import verified credentials from your DigiLocker account.
+                </p>
+                <Link
+  href="/add-certificate"
+  className="mt-auto w-full h-[33px] bg-[#FF6A58] hover:bg-[#ff5a45] text-white text-[12px] font-semibold rounded-[6px] flex items-center justify-center gap-1.5 transition-colors"
+>
+  Paste Link <span className="text-[13px]">→</span>
+</Link>
+              </div>
+              
             </div>
           </div>
         </div>
